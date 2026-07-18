@@ -1,0 +1,21 @@
+:root {
+  /* Primary Brand Core[cite: 3] */
+  --cotton-candy: #E8A0A8;
+  --indigo: #4E038C;
+  --bondi-blue: #0891B2;
+  --ocean-mist: #14B8A6;
+
+  /* Supporting Purples[cite: 3] */
+  --amethyst-smoke: #AD72B0;
+  --deep-lilac: #7D42B3;
+  --vivid-royal: #1707A8;
+
+  /* Semantic UI States[cite: 3] */
+  --deep-twilight: #120F73;
+  --brick-ember: #BD1515;   /* Hard Limits[cite: 3] */
+  --blaze-orange: #F26419;  /* Soft Limits[cite: 3] */
+
+  /* Typography Stacks[cite: 3] */
+  --font-header: 'Georgia', serif;
+  --font-ui: 'Trebuchet MS', system-ui, sans-serif;
+}
