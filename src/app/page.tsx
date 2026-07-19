@@ -10,7 +10,7 @@ export default async function HomePage() {
   return (
     <main>
       <KinksplorationHub 
-        initialChecklistActivities={activities} 
+        initialChecklistActivities={activities as any}
         currentUserId="user-1" 
       />
     </main>
