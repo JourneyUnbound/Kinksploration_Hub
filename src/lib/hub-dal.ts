@@ -16,8 +16,7 @@ import type {
 async function fetchOrderedTable<T>(table: string): Promise<T[]> {
   const { data, error } = await supabaseClient
     .from(table)
-    .select('*')
-    .order('display_order', { ascending: true });
+    .select('*');
 
   if (error) {
     throw new Error(`Failed to load ${table}: ${error.message}`);
