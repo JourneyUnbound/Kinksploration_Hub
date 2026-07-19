@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useMemo } from 'react';
 import '../styles/brandVariables.css';
 
@@ -18,7 +19,7 @@ import { TheUnwindEngine } from '../engines/TheUnwindEngine';
 import { HardLimitNSRView } from './BoundaryBuilder/HardLimitNSRView';
 import { ChecklistAssistedView } from './ScenePlanner/ChecklistAssistedView';
 import { ConsentHandshakeView } from './ContractNegotiator/ConsentHandshakeView';
-import { AftercareDashboardView } from './AfterCareAlly/AftercareDashboardView';
+import { AftercareDashboardView } from './AftercareAlly/AftercareDashboardView';
 import { ReflectionView } from './TheUnwind/ReflectionView';
 
 // 3. Define the Explicit Phase/Step Enums

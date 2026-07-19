@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import '../../styles/brandVariables.css';
 import { ChecklistActivity, ChecklistSuggestions } from '../../types/scenePlanner';

@@ -1,3 +1,4 @@
+'use client';
 // src/components/TheUnwind/ReflectionView.tsx
 import React from 'react';
 ;
