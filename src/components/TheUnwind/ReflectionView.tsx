@@ -1,24 +1,11 @@
+// src/components/TheUnwind/ReflectionView.tsx
 import React from 'react';
-import '../../styles/brandVariables.css';
+;
 import { ReflectionFramework, ReflectionMetrics } from '../../types/theUnwind';
 
 interface ReflectionViewProps {
   framework: ReflectionFramework;
-  onUpdateMetrics: (metrics: Partial<ReflectionMetrics>) => void;
-  onUpdateText: (fields: Partial<Pick<ReflectionFramework, 'keyTakeaways' | 'whatWentWell' | 'growthOpportunities'>>) => void;
-  onToggleShare: () => void;
-}
-
-export const ReflectionView: React.FC<ReflectionViewProps> = ({
-  framework,
-  onUpdateMetrics,
-  onUpdateText,import React from 'react';
-import '../../styles/brandVariables.css';
-import { ReflectionFramework, ReflectionMetrics } from '../../types/theUnwind';
-
-interface ReflectionViewProps {
-  framework: ReflectionFramework;
-  onUpdateMetrics: (metrics: Partial<ReflectionMetrics>) => void;
+  onUpdateMetrics?: (metrics: Partial<ReflectionMetrics>) => void;
   onUpdateText: (fields: Partial<Pick<ReflectionFramework, 'keyTakeaways' | 'whatWentWell' | 'growthOpportunities'>>) => void;
   onToggleShare: () => void;
 }
@@ -27,321 +14,318 @@ export const ReflectionView: React.FC<ReflectionViewProps> = ({
   framework,
   onUpdateMetrics,
   onUpdateText,
-  onToggleShare
+  onToggleShare,
 }) => {
+  const handleTextChange = (
+    field: 'keyTakeaways' | 'whatWentWell' | 'growthOpportunities',
+    value: string
+  ) => {
+    onUpdateText({ [field]: value });
+  };
+
+  const sContainer: React.CSSProperties = {
+    fontFamily: 'var(--font-ui)',
+    color: 'var(--deep-twilight)',
+    backgroundColor: '#FAFAFB',
+    padding: '32px',
+    borderRadius: '12px',
+    maxWidth: '850px',
+    margin: '0 auto',
+  };
+
+  const sHeader: React.CSSProperties = {
+    background: 'linear-gradient(135deg, var(--ocean-mist) 0%, var(--bondi-blue) 50%, var(--cotton-candy) 100%)',
+    padding: '24px 32px',
+    borderRadius: '12px 12px 0 0',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    margin: '-32px -32px 24px -32px',
+  };
+
+  const sH1: React.CSSProperties = {
+    fontFamily: 'var(--font-header)',
+    color: '#FFFFFF',
+    margin: 0,
+    fontSize: '28px',
+    fontWeight: 'normal',
+  };
+
+  const sHeaderP: React.CSSProperties = {
+    margin: '4px 0 0 0',
+    color: '#FFFFFF',
+    opacity: 0.9,
+    fontSize: '14px',
+  };
+
+  const sCard: React.CSSProperties = {
+    backgroundColor: '#FFFFFF',
+    border: '1px solid #E4E7EB',
+    borderRadius: '12px',
+    padding: '32px',
+    boxShadow: '0 4px 12px rgba(18, 15, 115, 0.03)',
+  };
+
+  const sCardTitle: React.CSSProperties = {
+    fontFamily: 'var(--font-header)',
+    fontSize: '20px',
+    fontWeight: 'normal',
+    margin: '0 0 8px 0',
+    color: 'var(--deep-twilight)',
+  };
+
+  const sCardSubtitle: React.CSSProperties = {
+    color: 'var(--amethyst-smoke)',
+    fontSize: '14px',
+    margin: '0 0 24px 0',
+  };
+
+  const sFieldsWrap: React.CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+  };
+
+  const sLabel: React.CSSProperties = {
+    display: 'block',
+    fontWeight: 600,
+    fontSize: '13px',
+    marginBottom: '6px',
+    color: 'var(--indigo)',
+  };
+
+  const sTextarea: React.CSSProperties = {
+    width: '100%',
+    fontFamily: 'var(--font-ui)',
+    padding: '12px',
+    borderRadius: '6px',
+    border: '1px solid #D0D5DD',
+    minHeight: '80px',
+    boxSizing: 'border-box',
+    fontSize: '14px',
+    color: 'var(--deep-twilight)',
+    resize: 'vertical',
+    outline: 'none',
+  };
+
+  const sShareSection: React.CSSProperties = {
+    marginTop: '28px',
+    paddingTop: '20px',
+    borderTop: '1px solid #E4E7EB',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  };
+
+  const sShareTitle: React.CSSProperties = {
+    fontSize: '15px',
+    fontWeight: 600,
+    color: 'var(--deep-twilight)',
+  };
+
+  const sShareDesc: React.CSSProperties = {
+    fontSize: '13px',
+    color: 'var(--amethyst-smoke)',
+    margin: '4px 0 0 0',
+  };
+
+  const sToggleBtn = (isOn: boolean): React.CSSProperties => ({
+    position: 'relative',
+    width: '48px',
+    height: '28px',
+    borderRadius: '14px',
+    border: 'none',
+    cursor: 'pointer',
+    backgroundColor: isOn ? 'var(--ocean-mist)' : '#D0D5DD',
+    transition: 'background-color 0.2s ease',
+    padding: 0,
+  });
+
+  const sToggleKnob = (isOn: boolean): React.CSSProperties => ({
+    position: 'absolute',
+    top: '2px',
+    left: isOn ? '22px' : '2px',
+    width: '24px',
+    height: '24px',
+    borderRadius: '50%',
+    backgroundColor: '#ffffff',
+    boxShadow: '0 1px 3px rgba(0,0,0,0.15)',
+    transition: 'left 0.2s ease',
+    display: 'block',
+  });
+
+  const sMetricsSection: React.CSSProperties = {
+    marginTop: '28px',
+    paddingTop: '20px',
+    borderTop: '1px solid #E4E7EB',
+  };
+
+  const sMetricsTitle: React.CSSProperties = {
+    fontFamily: 'var(--font-header)',
+    fontSize: '18px',
+    fontWeight: 'normal',
+    margin: '0 0 16px 0',
+    color: 'var(--deep-twilight)',
+  };
+
+  const sMetricsStack: React.CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
+  };
+
+  const sMetricRow: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+  };
+
+  const sRange: React.CSSProperties = {
+    flex: 1,
+    accentColor: 'var(--indigo)',
+  };
+
+  const sRangeValue: React.CSSProperties = {
+    minWidth: '24px',
+    textAlign: 'center',
+    fontWeight: 600,
+    color: 'var(--deep-twilight)',
+  };
+
+  const sNumberInput: React.CSSProperties = {
+    width: '100%',
+    fontFamily: 'var(--font-ui)',
+    padding: '10px 12px',
+    borderRadius: '6px',
+    border: '1px solid #D0D5DD',
+    fontSize: '14px',
+    color: 'var(--deep-twilight)',
+    boxSizing: 'border-box',
+  };
+
   return (
-    <div className="unwind-container" style={{
-      fontFamily: 'var(--font-ui)',
-      color: 'var(--deep-twilight)',
-      backgroundColor: '#FAFAFB',
-      padding: '32px',
-      borderRadius: '12px',
-      maxWidth: '850px',
-      margin: '0 auto'
-    }}>
-      <header style={{
-        background: 'linear-gradient(135deg, var(--indigo) 0%, var(--deep-lilac) 50%, var(--cotton-candy) 100%)',
-        padding: '24px 32px',
-        borderRadius: '12px 12px 0 0',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }}>
+    <div style={sContainer}>
+      <header style={sHeader}>
         <div>
-          <h1 style={{
-            fontFamily: 'var(--font-header)',
-            color: '#FFFFFF',
-            margin: 0,
-            fontSize: '28px',
-            fontWeight: 'normal'
-          }}>
-            The Unwind
-          </h1>
-          <p style={{ margin: '4px 0 0 0', color: '#FFFFFF', opacity: 0.9, fontSize: '14px' }}>
-            Integration & Post-Scene Reflection Matrix
-          </p>
+          <h1 style={sH1}>The Unwind</h1>
+          <p style={sHeaderP}>Post-Scene Reflection & Integration Hub</p>
         </div>
         <svg width="50" height="50" viewBox="0 0 100 100" style={{ filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.15))' }}>
-          <path d="M20 70 Q50 30 80 70" stroke="#FFFFFF" strokeWidth="4" fill="none" strokeLinecap="round" />
-          <circle cx="50" cy="40" r="6" fill="var(--blaze-orange)" />
-          <line x1="15" y1="75" x2="85" y2="75" stroke="#FFFFFF" strokeWidth="3" />
+          <circle cx="50" cy="40" r="15" fill="none" stroke="#FFFFFF" strokeWidth="3" />
+          <path d="M35 60 Q50 75 65 60" stroke="var(--cotton-candy)" strokeWidth="4" fill="none" strokeLinecap="round" />
+          <circle cx="50" cy="40" r="5" fill="var(--cotton-candy)" />
         </svg>
       </header>
 
-      <div style={{
-        backgroundColor: '#FFFFFF',
-        border: '1px solid #E4E7EB',
-        borderRadius: '0 0 12px 12px',
-        padding: '32px',
-        boxShadow: '0 4px 12px rgba(18, 15, 115, 0.03)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '28px'
-      }}>
-        <div>
-          <h3 style={{ fontFamily: 'var(--font-header)', fontSize: '20px', fontWeight: 'normal', margin: '0 0 20px 0' }}>
-            Integration Metrics
-          </h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', fontWeight: '600', marginBottom: '8px' }}>
-                <span>Boundary Safety & Respect Verification</span>
-                <span style={{ color: 'var(--indigo)' }}>{framework.metrics.boundaryRespectScore} / 5</span>
-              </div>
-              <input
-                type="range" min="1" max="5"
-                value={framework.metrics.boundaryRespectScore}
-                onChange={(e) => onUpdateMetrics({ boundaryRespectScore: parseInt(e.target.value) })}
-                style={{ width: '100%', accentColor: 'var(--indigo)' }}
-              />
-            </div>
+      <div style={sCard}>
+        <h3 style={sCardTitle}>Session Reflection</h3>
+        <p style={sCardSubtitle}>Capture your thoughts, insights, and growth opportunities from this journey.</p>
 
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', fontWeight: '600', marginBottom: '8px' }}>
-                <span>Communication Clarity Check</span>
-                <span style={{ color: 'var(--indigo)' }}>{framework.metrics.communicationClarity} / 5</span>
-              </div>
-              <input
-                type="range" min="1" max="5"
-                value={framework.metrics.communicationClarity}
-                onChange={(e) => onUpdateMetrics({ communicationClarity: parseInt(e.target.value) })}
-                style={{ width: '100%', accentColor: 'var(--indigo)' }}
-              />
-            </div>
-          </div>
-        </div>
-
-        <hr style={{ border: 'none', borderTop: '1px solid #E4E7EB', margin: 0 }} />
-
-        <div>
-          <h3 style={{ fontFamily: 'var(--font-header)', fontSize: '20px', fontWeight: 'normal', margin: '0 0 16px 0' }}>
-            Self-Exploration Integration
-          </h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <div>
-              <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', marginBottom: '6px' }}>
-                What elements flowed exactly as intended?
-              </label>
-              <textarea
-                value={framework.whatWentWell}
-                onChange={(e) => onUpdateText({ whatWentWell: e.target.value })}
-                style={{ width: '100%', fontFamily: 'var(--font-ui)', padding: '12px', borderRadius: '6px', border: '1px solid #D0D5DD', minHeight: '80px', boxSizing: 'border-box' }}
-              />
-            </div>
-
-            <div>
-              <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', marginBottom: '6px' }}>
-                Key emotional takeaways or internal insights:
-              </label>
-              <textarea
-                value={framework.keyTakeaways}
-                onChange={(e) => onUpdateText({ keyTakeaways: e.target.value })}
-                style={{ width: '100%', fontFamily: 'var(--font-ui)', padding: '12px', borderRadius: '6px', border: '1px solid #D0D5DD', minHeight: '80px', boxSizing: 'border-box' }}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div style={{
-          backgroundColor: '#F8F9FA',
-          padding: '20px',
-          borderRadius: '8px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginTop: '12px',
-          border: '1px solid #E4E7EB'
-        }}>
+        <div style={sFieldsWrap}>
           <div>
-            <strong style={{ display: 'block', fontSize: '15px' }}>Partner Visibility Toggle</strong>
-            <span style={{ fontSize: '13px', color: 'var(--amethyst-smoke)' }}>
-              Keep this reflection private to your personal dashboard or share to sync growth tracks.
-            </span>
+            <label htmlFor="what-went-well" style={sLabel}>What Went Well</label>
+            <textarea
+              id="what-went-well"
+              value={framework.whatWentWell || ''}
+              onChange={(e) => handleTextChange('whatWentWell', e.target.value)}
+              placeholder="What moments stood out positively?"
+              rows={4}
+              style={sTextarea}
+            />
           </div>
+
+          <div>
+            <label htmlFor="growth-opportunities" style={sLabel}>Growth Opportunities</label>
+            <textarea
+              id="growth-opportunities"
+              value={framework.growthOpportunities || ''}
+              onChange={(e) => handleTextChange('growthOpportunities', e.target.value)}
+              placeholder="What could be explored or improved next time?"
+              rows={4}
+              style={sTextarea}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="key-takeaways" style={sLabel}>Key Takeaways</label>
+            <textarea
+              id="key-takeaways"
+              value={framework.keyTakeaways || ''}
+              onChange={(e) => handleTextChange('keyTakeaways', e.target.value)}
+              placeholder="What are your main insights or learnings?"
+              rows={4}
+              style={sTextarea}
+            />
+          </div>
+        </div>
+
+        <div style={sShareSection}>
+          <div>
+            <span style={sShareTitle}>Share Reflection</span>
+            <p style={sShareDesc}>Make this reflection visible to your partner</p>
+          </div>
+
           <button
+            type="button"
             onClick={onToggleShare}
-            style={{
-              fontFamily: 'var(--font-ui)',
-              padding: '10px 20px',
-              borderRadius: '6px',
-              border: 'none',
-              backgroundColor: framework.hasSharedWithPartner ? 'var(--ocean-mist)' : 'var(--deep-twilight)',
-              color: '#FFFFFF',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'background-color 0.15s ease'
-            }}
+            aria-pressed={framework.hasSharedWithPartner}
+            style={sToggleBtn(framework.hasSharedWithPartner)}
           >
-            {framework.hasSharedWithPartner ? 'Shared with Partner' : 'Keep Private'}
+            <span style={sToggleKnob(framework.hasSharedWithPartner)} />
           </button>
         </div>
+
+        {onUpdateMetrics && (
+          <div style={sMetricsSection}>
+            <h4 style={sMetricsTitle}>Session Metrics</h4>
+
+            <div style={sMetricsStack}>
+              <div>
+                <label style={sLabel}>Boundary Respect Score</label>
+                <div style={sMetricRow}>
+                  <input
+                    type="range"
+                    min={1}
+                    max={5}
+                    value={framework.metrics.boundaryRespectScore}
+                    onChange={(e) => onUpdateMetrics({ boundaryRespectScore: parseInt(e.target.value) })}
+                    style={sRange}
+                  />
+                  <span style={sRangeValue}>{framework.metrics.boundaryRespectScore}</span>
+                </div>
+              </div>
+
+              <div>
+                <label style={sLabel}>Communication Clarity</label>
+                <div style={sMetricRow}>
+                  <input
+                    type="range"
+                    min={1}
+                    max={5}
+                    value={framework.metrics.communicationClarity}
+                    onChange={(e) => onUpdateMetrics({ communicationClarity: parseInt(e.target.value) })}
+                    style={sRange}
+                  />
+                  <span style={sRangeValue}>{framework.metrics.communicationClarity}</span>
+                </div>
+              </div>
+
+              <div>
+                <label style={sLabel}>Emotional Grounding Time (minutes)</label>
+                <input
+                  type="number"
+                  min={0}
+                  value={framework.metrics.emotionalGroundingTime}
+                  onChange={(e) => onUpdateMetrics({ emotionalGroundingTime: parseInt(e.target.value) || 0 })}
+                  style={sNumberInput}
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-  onToggleShare
-}) => {
-  return (
-    <div className="unwind-container" style={{
-      fontFamily: 'var(--font-ui)',
-      color: 'var(--deep-twilight)',
-      backgroundColor: '#FAFAFB',
-      padding: '32px',
-      borderRadius: '12px',
-      maxWidth: '850px',
-      margin: '0 auto'
-    }}>
-      {/* Ocean to Sunset Logo Concept - Shifting to a deeper tone representing reflection[cite: 3] */}
-      <header style={{
-        background: 'linear-gradient(135deg, var(--indigo) 0%, var(--deep-lilac) 50%, var(--cotton-candy) 100%)',
-        padding: '24px 32px',
-        borderRadius: '12px 12px 0 0',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }}>
-        <div>
-          <h1 style={{
-            fontFamily: 'var(--font-header)',
-            color: '#FFFFFF',
-            margin: 0,
-            fontSize: '28px',
-            fontWeight: 'normal'
-          }}>
-            The Unwind
-          </h1>
-          <p style={{ margin: '4px 0 0 0', color: '#FFFFFF', opacity: 0.9, fontSize: '14px' }}>
-            Integration & Post-Scene Reflection Matrix
-          </p>
-        </div>
-
-        {/* Identity SVG Asset: The Unwind (Sunset Fire energy structure)[cite: 3] */}
-        <svg width="50" height="50" viewBox="0 0 100 100" style={{ filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.15))' }}>
-          <path d="M20 70 Q50 30 80 70" stroke="#FFFFFF" strokeWidth="4" fill="none" strokeLinecap="round" />
-          <circle cx="50" cy="40" r="6" fill="var(--blaze-orange)" />
-          <line x1="15" y1="75" x2="85" y2="75" stroke="#FFFFFF" strokeWidth="3" />
-        </svg>
-      </header>
-
-      {/* Main Workspace Body Wrapper */}
-      <div style={{
-        backgroundColor: '#FFFFFF',
-        border: '1px solid #E4E7EB',
-        borderRadius: '0 0 12px 12px',
-        padding: '32px',
-        boxShadow: '0 4px 12px rgba(18, 15, 115, 0.03)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '28px'
-      }}>
-
-        {/* Section 1: Quantitative Metric Sliders */}
-        <div>
-          <h3 style={{ fontFamily: 'var(--font-header)', fontSize: '20px', fontWeight: 'normal', margin: '0 0 20px 0' }}>
-            Integration Metrics
-          </h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', fontWeight: '600', marginBottom: '8px' }}>
-                <span>Boundary Safety & Respect Verification</span>
-                <span style={{ color: 'var(--indigo)' }}>{framework.metrics.boundaryRespectScore} / 5</span>
-              </div>
-              <input 
-                type="range" min="1" max="5" 
-                value={framework.metrics.boundaryRespectScore}
-                onChange={(e) => onUpdateMetrics({ boundaryRespectScore: parseInt(e.target.value) })}
-                style={{ width: '100%', accentColor: 'var(--indigo)' }}
-              />
-            </div>
-
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', fontWeight: '600', marginBottom: '8px' }}>
-                <span>Communication Clarity Check</span>
-                <span style={{ color: 'var(--indigo)' }}>{framework.metrics.communicationClarity} / 5</span>
-              </div>
-              <input 
-                type="range" min="1" max="5" 
-                value={framework.metrics.communicationClarity}
-                onChange={(e) => onUpdateMetrics({ communicationClarity: parseInt(e.target.value) })}
-                style={{ width: '100%', accentColor: 'var(--indigo)' }}
-              />
-            </div>
-
-          </div>
-        </div>
-
-        <hr style={{ border: 'none', borderTop: '1px solid #E4E7EB', margin: 0 }} />
-
-        {/* Section 2: Qualitative Self-Exploration Inputs[cite: 2] */}
-        <div>
-          <h3 style={{ fontFamily: 'var(--font-header)', fontSize: '20px', fontWeight: 'normal', margin: '0 0 16px 0' }}>
-            Self-Exploration Integration
-          </h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            
-            <div>
-              <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', marginBottom: '6px' }}>
-                What elements flowed exactly as intended?
-              </label>
-              <textarea
-                value={framework.whatWentWell}
-                onChange={(e) => onUpdateText({ whatWentWell: e.target.value })}
-                style={{ width: '100%', fontFamily: 'var(--font-ui)', padding: '12px', borderRadius: '6px', border: '1px solid #D0D5DD', minHeight: '80px', boxSizing: 'border-box' }}
-              />
-            </div>
-
-            <div>
-              <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', marginBottom: '6px' }}>
-                Key emotional takeaways or internal insights:
-              </label>
-              <textarea
-                value={framework.keyTakeaways}
-                onChange={(e) => onUpdateText({ keyTakeaways: e.target.value })}
-                style={{ width: '100%', fontFamily: 'var(--font-ui)', padding: '12px', borderRadius: '6px', border: '1px solid #D0D5DD', minHeight: '80px', boxSizing: 'border-box' }}
-              />
-            </div>
-
-          </div>
-        </div>
-
-        {/* Section 3: Shared Visibility Safeguard */}
-        <div style={{
-          backgroundColor: '#F8F9FA',
-          padding: '20px',
-          borderRadius: '8px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginTop: '12px',
-          border: '1px solid #E4E7EB'
-        }}>
-          <div>
-            <strong style={{ display: 'block', fontSize: '15px' }}>Partner Visibility Toggle</strong>
-            <span style={{ fontSize: '13px', color: 'var(--amethyst-smoke)' }}>
-              Keep this reflection private to your personal dashboard or share to sync growth tracks.
-            </span>
-          </div>
-          <button
-            onClick={onToggleShare}
-            style={{
-              fontFamily: 'var(--font-ui)',
-              padding: '10px 20px',
-              borderRadius: '6px',
-              border: 'none',
-              backgroundColor: framework.hasSharedWithPartner ? 'var(--ocean-mist)' : 'var(--deep-twilight)',
-              color: '#FFFFFF',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'background-color 0.15s ease'
-            }}
-          >
-            {framework.hasSharedWithPartner ? 'Shared with Partner' : 'Keep Private'}
-          </button>
-        </div>
-
-      </div>
-    </div>
-  );
-};
+export default ReflectionView;
