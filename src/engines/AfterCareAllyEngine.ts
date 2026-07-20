@@ -1,4 +1,4 @@
-import { AftercarePlan, AftercareTask } from '../types/afterCareAlly';
+import { AftercarePlan, AftercareTask } from '../types/AfterCareAlly';
 import { DownstreamSceneContext } from '../types/downstream';
 
 export class AfterCareAllyEngine {

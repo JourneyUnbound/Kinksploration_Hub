@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import '../../styles/brandVariables.css';
-import { AftercarePlan } from '../../types/afterCareAlly';
+import { AftercarePlan } from '../../types/AfterCareAlly';
 
 interface AftercareDashboardViewProps {
   plan: AftercarePlan;

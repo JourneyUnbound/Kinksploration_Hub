@@ -7,7 +7,7 @@ import '@/styles/brandVariables.css';
 import type { ChecklistActivity, ScenePlan } from '@/types/scenePlanner';
 import type { HardLimitBoundary, NSRSentence } from '@/types/boundaryBuilder';
 import type { NegotiatedContract, ParticipantSignature } from '@/types/contractNegotiator';
-import type { AftercarePlan } from '@/types/afterCareAlly';
+import type { AftercarePlan } from '@/types/AfterCareAlly';
 import type { ReflectionFramework, ReflectionMetrics } from '@/types/theUnwind';
 
 import { BoundaryBuilderEngine } from '@/engines/BoundaryBuilderEngine';
