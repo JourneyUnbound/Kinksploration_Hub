@@ -247,7 +247,7 @@ export const KinksplorationHub: React.FC<KinksplorationHubProps> = ({
         <p style={{ marginTop: 0, color: 'var(--amethyst-smoke)' }}>
           Open any tool at any time. Available context is used when present and never required.
         </p>
-        <Link href="/checklist" style={{ color: 'var(--indigo)', fontWeight: 600 }}>
+        <Link href="/KinksplorationChecklist" style={{ color: 'var(--indigo)', fontWeight: 600 }}>
           Open Kinksploration™ Checklist
         </Link>
       </header>
