@@ -19,7 +19,7 @@ import { KinksplorationStorage } from '@/lib/local-storage';
 
 import { HardLimitNSRView } from '@/components/BoundaryBuilder/HardLimitNSRView';
 import { ChecklistAssistedView } from '@/components/ScenePlanner/ChecklistAssistedView';
-import { ConsentHandshakeView } from '@/components/ContractNegotiator/ConsentHandshakeView';
+import { ContractNegotiatorView } from '@/components/ContractNegotiator/ContractNegotiatorView';
 import { AftercareDashboardView } from '@/components/AftercareAlly/AftercareDashboardView';
 import { ReflectionView } from '@/components/TheUnwind/ReflectionView';
 
@@ -318,13 +318,14 @@ export const KinksplorationHub: React.FC<KinksplorationHubProps> = ({
       )}
 
       {activeTool === 'negotiator' && contract && (
-        <ConsentHandshakeView
-          contract={contract}
-          isSafetyValid={cnEngine.validateContractSafety(contract)}
-          currentUserId={currentUserId}
-          onSignContract={handleSignContract}
-        />
-      )}
+  <ContractNegotiatorView
+    contract={contract}
+    onUpdateContract={setContract}
+    isSafetyValid={cnEngine.validateContractSafety(contract)}
+    currentUserId={currentUserId}
+    onSignContract={handleSignContract}
+  />
+)}
 
       {activeTool === 'aftercare' && aftercarePlan && (
         <AftercareDashboardView

@@ -265,7 +265,10 @@ const ContractListSection: React.FC<ContractListSectionProps> = ({
   onChange,
   onAdd,
   onRemove,
-}) => (
+}) => {
+  const displayItems = items.length > 0 ? items : [''];
+
+  return (
   <section style={{ marginBottom: 28 }}>
     <h2
       style={{
@@ -277,7 +280,7 @@ const ContractListSection: React.FC<ContractListSectionProps> = ({
       {title}
     </h2>
 
-    {items.map((item, index) => (
+    {displayItems.map((item, index) => (
       <div
         key={`${title}-${index}`}
         style={{ display: 'flex', gap: 8, marginBottom: 8 }}
@@ -304,3 +307,4 @@ const ContractListSection: React.FC<ContractListSectionProps> = ({
     </button>
   </section>
 );
+}
