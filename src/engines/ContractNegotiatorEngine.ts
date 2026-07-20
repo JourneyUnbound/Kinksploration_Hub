@@ -1,33 +1,74 @@
-import { NegotiatedContract, ParticipantSignature } from '../types/contractNegotiator';
+import {
+  NegotiatedContract,
+  ParticipantSignature,
+} from '../types/contractNegotiator';
+
 import { HardLimitBoundary } from '../types/boundaryBuilder';
 import { ScenePlan } from '../types/scenePlanner';
 
 export class ContractNegotiatorEngine {
+  public createBlankContract(): NegotiatedContract {
+    return {
+      id: crypto.randomUUID(),
+      sceneId: crypto.randomUUID(),
+
+      relationshipStructure: '',
+      clauseVariables: '',
+      consentConsiderations: [],
+      negotiatedAgreements: [],
+      agreementClauses: [],
+
+      lockedHardLimits: [],
+      activeSoftLimitAgreements: [],
+      finalizedSequence: [],
+
+      isConsensual: false,
+      signatures: [],
+      revocationLog: [],
+    };
+  }
 
   public generateContractDraft(
     scenePlan: ScenePlan,
-    confirmedBoundaries: HardLimitBoundary[]
+    boundaries: HardLimitBoundary[]
   ): NegotiatedContract {
     return {
       id: crypto.randomUUID(),
       sceneId: scenePlan.id,
-      lockedHardLimits: confirmedBoundaries.filter((b) => b.isConfirmed),
-      activeSoftLimitAgreements: scenePlan.softLimitDiscussionOutcomes,
+
+      relationshipStructure: '',
+      clauseVariables: '',
+      consentConsiderations: [],
+      negotiatedAgreements: [],
+      agreementClauses: [],
+
+      lockedHardLimits: boundaries.filter(
+        (boundary) => boundary.boundaryType === 'hard'
+      ),
+
+      activeSoftLimitAgreements:
+        scenePlan.softLimitDiscussionOutcomes,
+
       finalizedSequence: scenePlan.sceneSequence,
+
       isConsensual: false,
       signatures: [],
-      revocationLog: []
+      revocationLog: [],
     };
   }
 
-  public validateContractSafety(contract: NegotiatedContract): boolean {
-    const hardLimitIds = new Set(contract.lockedHardLimits.map((b) => b.activityId));
-    for (const activityId of contract.finalizedSequence) {
-      if (hardLimitIds.has(activityId)) {
-        return false;
-      }
-    }
-    return true;
+  public validateContractSafety(
+    contract: NegotiatedContract
+  ): boolean {
+    const hardLimitIds = new Set(
+      contract.lockedHardLimits.map(
+        (boundary) => boundary.activityId
+      )
+    );
+
+    return !contract.finalizedSequence.some((activityId) =>
+      hardLimitIds.has(activityId)
+    );
   }
 
   public executeSignature(
@@ -35,9 +76,13 @@ export class ContractNegotiatorEngine {
     newSignature: ParticipantSignature,
     expectedParticipantCount: number = 2
   ): NegotiatedContract {
-    const updatedSignatures = currentContract.signatures.filter(
-      (sig) => sig.participantId !== newSignature.participantId
-    );
+    const updatedSignatures =
+      currentContract.signatures.filter(
+        (signature) =>
+          signature.participantId !==
+          newSignature.participantId
+      );
+
     updatedSignatures.push(newSignature);
 
     const prospectiveContract: NegotiatedContract = {
@@ -45,12 +90,15 @@ export class ContractNegotiatorEngine {
       signatures: updatedSignatures,
     };
 
-    const isSafe = this.validateContractSafety(prospectiveContract);
-    const hasAllSignatures = updatedSignatures.length === expectedParticipantCount;
+    const isSafe =
+      this.validateContractSafety(prospectiveContract);
+
+    const hasAllSignatures =
+      updatedSignatures.length === expectedParticipantCount;
 
     return {
       ...prospectiveContract,
-      isConsensual: isSafe && hasAllSignatures
+      isConsensual: isSafe && hasAllSignatures,
     };
   }
 }

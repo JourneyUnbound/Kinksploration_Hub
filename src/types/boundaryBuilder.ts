@@ -8,6 +8,7 @@ export interface NSRSentence {
 export interface HardLimitBoundary {
   activityId: string;
   activityName: string;
+  boundaryType: 'hard' | 'soft';
   nsrScript: NSRSentence;
   isConfirmed: boolean;
 }

@@ -2,16 +2,24 @@ import React from 'react';
 import { KinksplorationHub } from '../components/KinksplorationHub';
 import { HubDAL } from '../lib/hub-dal';
 
-// This is a Server Component that fetches initial data
+export const dynamic = 'force-dynamic';
+
+type Activities = Awaited<ReturnType<typeof HubDAL.fetchActivities>>;
+
 export default async function HomePage() {
-  // Fetch activities from Supabase for the checklist
-  const activities = await HubDAL.fetchActivities();
-  
+  let activities: Activities = [];
+
+  try {
+    activities = await HubDAL.fetchActivities();
+  } catch (error) {
+    console.error('Failed to load activities:', error);
+  }
+
   return (
     <main>
-      <KinksplorationHub 
+      <KinksplorationHub
         initialChecklistActivities={activities as any}
-        currentUserId="user-1" 
+        currentUserId="user-1"
       />
     </main>
   );

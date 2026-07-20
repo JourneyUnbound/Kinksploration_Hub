@@ -13,12 +13,31 @@ export class BoundaryBuilderEngine {
       .map((a) => ({
         activityId: a.id,
         activityName: a.name,
+        boundaryType: 'hard',
         isConfirmed: false,
         nsrScript: {
           need: '',
           situation: a.name,
           request: 'this activity is completely off-limits and non-negotiable',
           formattedText: `I need to feel safe. When it comes to ${a.name}, I request that this activity is completely off-limits and non-negotiable.`,
+        },
+      }));
+  }
+
+
+  public initializeSoftLimits(activities: ChecklistActivity[]): HardLimitBoundary[] {
+    return activities
+      .filter((a) => a.isSoftLimit)
+      .map((a) => ({
+        activityId: a.id,
+        activityName: a.name,
+        boundaryType: 'soft' as const,
+        isConfirmed: false,
+        nsrScript: {
+          need: '',
+          situation: a.name,
+          request: 'we discuss this activity and agree on the conditions before including it',
+          formattedText: `When it comes to ${a.name}, I request that we discuss it and agree on the conditions before including it.`,
         },
       }));
   }
