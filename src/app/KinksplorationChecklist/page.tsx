@@ -1,5 +1,5 @@
-import KinksplorationChecklist from "@/components/KinksplorationChecklist";
+import { redirect } from "next/navigation";
 
 export default function ChecklistPage() {
-  return <KinksplorationChecklist />;
+  redirect("/kinksploration-checklist.html");
 }
