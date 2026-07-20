@@ -4,20 +4,26 @@ import { SoftLimitDiscussionOutcome } from './scenePlanner';
 export interface ParticipantSignature {
   participantId: string;
   signedAt: string;
-  ipAddress?: string; // Optional metadata for verification tracking
+  ipAddress?: string;
 }
 
 export interface NegotiatedContract {
   id: string;
   sceneId: string;
-  // Read-only snapshots brought forward from previous phases to freeze terms
+
+  relationshipStructure: string;
+  clauseVariables: string;
+  consentConsiderations: string[];
+  negotiatedAgreements: string[];
+  agreementClauses: string[];
+
   lockedHardLimits: HardLimitBoundary[];
   activeSoftLimitAgreements: SoftLimitDiscussionOutcome[];
   finalizedSequence: string[];
-  
-  // Consent Tracking States
+
   isConsensual: boolean;
   signatures: ParticipantSignature[];
+
   revocationLog: {
     participantId: string;
     timestamp: string;

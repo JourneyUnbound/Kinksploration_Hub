@@ -126,7 +126,11 @@ export const KinksplorationHub: React.FC<KinksplorationHubProps> = ({
               selectedSceneActivities: scenePlan.selectedSceneActivities,
               sceneNotes: scenePlan.sceneNotes,
             })
-          : aaEngine.createBlankPlan()
+          : aaEngine.generatePlan({
+              sceneId: crypto.randomUUID(),
+              selectedSceneActivities: [],
+              sceneNotes: '',
+            })
       );
     }
 
@@ -138,7 +142,11 @@ export const KinksplorationHub: React.FC<KinksplorationHubProps> = ({
               selectedSceneActivities: contract?.finalizedSequence ?? scenePlan.selectedSceneActivities,
               sceneNotes: scenePlan.sceneNotes,
             })
-          : uwEngine.createBlankReflection()
+          : uwEngine.initializeReflection({
+              sceneId: crypto.randomUUID(),
+              selectedSceneActivities: [],
+              sceneNotes: '',
+            })
       );
     }
 
