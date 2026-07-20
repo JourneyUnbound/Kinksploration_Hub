@@ -1,8 +1,8 @@
+"use client";
 import React, { useState, useEffect, useMemo } from 'react';
 import { HubDAL } from '../lib/hub-dal';
 import { KinksplorationStorage } from '../lib/local-storage';
 import type { Activity, Need, ChecklistResponse } from '../lib/hub-types';
-
 export default function KinksplorationChecklist() {
   // --- State Management ---
   const [activities, setActivities] = useState<Activity[]>([]);
